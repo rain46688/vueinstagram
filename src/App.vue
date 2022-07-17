@@ -13,10 +13,22 @@
   </div>
 
   <h4>Hellow {{ $store.state.name }}!</h4>
+  <!-- computed 함수에 미리 정의해놓으면 짧게 쓸수있음 -->
+  <h4>computed Hellow {{ comname }}!</h4>
+  <!-- mapState 매우 간단하게 작성 가능 -->
+  <h4>mapState Hellow {{ myname }}!</h4>
   <h4>Your Age {{ $store.state.age }}!</h4>
+  <h4>mapState Your Age {{ age }}!</h4>
+
   <button @click="$store.commit('ageChange', 10)">Button</button>
+  <!-- 위에껄 쉽게 바꾸기 가능 -->
+  <button @click="ageChange(10)">mapMutations Button</button>
+
   <p>{{ $store.state.more }}!</p>
   <button @click="$store.dispatch('getData')">더보기 버튼</button>
+
+  <p>{{ now() }} {{ count }}</p>
+  <button @click="count++">button</button>
 
   <ContainerComp @inputText="newContent = $event" :newImageFilter='newImageFilter' :instagramData='instagramData'
     :step='step' :imageUrl='imageUrl' />
@@ -38,6 +50,8 @@ import ContainerComp from './components/ContainerComp.vue';
 import data from './assets/data.js';
 // import axios from 'axios';
 
+import { mapMutations, mapState } from 'vuex'
+
 export default {
   name: 'App',
   data() {
@@ -47,6 +61,8 @@ export default {
       imageUrl: '',
       newContent: '',
       newImageFilter: '',
+      count: 0,
+
     }
   },
   components: {
@@ -70,6 +86,7 @@ export default {
       this.imageUrl = url;
 
     },
+
     publish() {
       console.log("newContent : ", this.newContent);
 
@@ -86,7 +103,30 @@ export default {
       this.instagramData.unshift(newObject);
       this.step = 0;
     },
+
+    now() {
+      return new Date()
+    },
+
+    // store에있는 함수들도 쉽게 가져다 쓰기 이건 methods에 넣어야됨
+    ...mapMutations(['ageChange'])
   },
+
+  // 여기도 method 처럼 함수를 만들수 있지만 차이점이있음
+  // 이건 첨에 호출할때 결과를 저장하고 다음에 호출할때는 결과만 보여주고 로직은 다시 수행하지 않음
+  // 그래서 내부 메모리 절약을 할수있음
+  computed: {
+    now2() {
+      return new Date()
+    },
+    comname() {
+      return this.$store.state.name;
+    },
+    // store에서 정의한 변수들 쉽게 가져다 쓰는 축약식
+    ...mapState(['name', 'age', 'likes']),
+    ...mapState({ myname: 'name' }),
+  },
+
   mounted() {
     this.emitter.on('filter', (a) => {
       console.log(a);
