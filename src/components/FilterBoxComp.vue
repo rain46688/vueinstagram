@@ -3,6 +3,7 @@
         <!-- <slot name="b"></slot>, -->
         <slot name="a"></slot>
         <!-- <slot :데이터="데이터"></slot> -->
+        <button @click="fire">버튼</button>
     </div>
 </template>
 
@@ -10,7 +11,7 @@
 export default {
     data() {
         return {
-            데이터: "필터명",
+
         }
     },
     props: {
@@ -18,6 +19,11 @@ export default {
         filter: String,
 
     },
+    methods : {
+        fire(){
+            this.emitter.emit('filter',this.filter);
+        },
+    }
 }
 </script>
 

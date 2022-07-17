@@ -2,12 +2,12 @@
     <div>
         <!-- 저번시간에 만든거 -->
         <div v-if="step == 0">
-            <PostComp v-for="(data, num) in instagramData" :key="num" :data='data' />
+            <PostComp v-for="(data, num) in instagramData" :key="num" :data='data'/>
         </div>
 
         <!-- 필터선택페이지 -->
         <div v-if="step == 1">
-            <div class="upload-image" :style="`background-image:url(${imageUrl})`"></div>
+            <div :class="`${newImageFilter} upload-image`" :style="`background-image:url(${imageUrl})`"></div>
             <div class="filters">
                 <FilterBoxComp v-for="(a, i) in filters" :key="a" :imageUrl="imageUrl" :filter="filters[i]">
                     <!-- <template v-slot:default="작명"> {{ 작명.데이터 }}</template> -->
@@ -19,7 +19,7 @@
 
         <!-- 글작성페이지 -->
         <div v-if="step == 2">
-            <div class="upload-image" :style="{ backgroundImage: `url(${imageUrl})` }"></div>
+            <div :class="`${newImageFilter} upload-image`" :style="{ backgroundImage: `url(${imageUrl})` }"></div>
             <div class="write">
                 <textarea @change="$emit('inputText', texts)" v-model="texts" class="write-box"></textarea>
             </div>
@@ -47,7 +47,7 @@ export default {
         instagramData: Array,
         step: Number,
         imageUrl: String,
-
+        newImageFilter : String,
 
     },
     components: {

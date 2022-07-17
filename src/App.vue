@@ -10,7 +10,7 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <ContainerComp @inputText="newContent = $event" :instagramData='instagramData' :step='step' :imageUrl='imageUrl'/>
+  <ContainerComp @inputText="newContent = $event" :newImageFilter='newImageFilter' :instagramData='instagramData' :step='step' :imageUrl='imageUrl' />
 
   <button @click="more()">더보기</button>
 
@@ -27,31 +27,32 @@
 
 import ContainerComp from './components/ContainerComp.vue';
 import data from './assets/data.js';
-import axios from 'axios';
+// import axios from 'axios';
 
 export default {
   name: 'App',
-  data(){
-    return{
-      instagramData : data,
-      step : 0,
-      imageUrl :'',
-      newContent : '',
+  data() {
+    return {
+      instagramData: data,
+      step: 0,
+      imageUrl: '',
+      newContent: '',
+      newImageFilter : '',
     }
   },
   components: {
     ContainerComp,
   },
-  methods : {
-    more(){
+  methods: {
+    more() {
 
-      axios.get(`https://codingapple1.github.io/vue/more${this.instagramData.length-3}.json`)
-      .then(result => {
-        console.log(result.data);
-        this.instagramData.push(result.data);
-      })
+      this.axios.get(`https://codingapple1.github.io/vue/more${this.instagramData.length - 3}.json`)
+        .then(result => {
+          console.log(result.data);
+          this.instagramData.push(result.data);
+        })
     },
-    upload(e){
+    upload(e) {
       let a = e.target.files;
       console.log(a[0]);
       let url = URL.createObjectURL(a[0]);
@@ -60,23 +61,29 @@ export default {
       this.imageUrl = url;
 
     },
-    publish(){
-      console.log("newContent : ",this.newContent);
+    publish() {
+      console.log("newContent : ", this.newContent);
 
       let newObject = {
-      name: "Kim Hyun",
-      userImage: "https://placeimg.com/100/100/arch",
-      postImage: this.imageUrl,
-      likes: 36,
-      date: "May 15",
-      liked: false,
-      content: this.newContent,
-      filter: "perpetua"
-    };
+        name: "Kim Hyun",
+        userImage: "https://placeimg.com/100/100/arch",
+        postImage: this.imageUrl,
+        likes: 36,
+        date: "May 15",
+        liked: false,
+        content: this.newContent,
+        filter: this.newImageFilter,
+      };
       this.instagramData.unshift(newObject);
       this.step = 0;
     },
-  }
+  },
+  mounted() {
+    this.emitter.on('filter', (a) => {
+      console.log(a);
+      this.newImageFilter = a;
+    })
+  },
 }
 </script>
 
