@@ -4,12 +4,13 @@
       <li>Cancel</li>
     </ul>
     <ul class="header-button-right">
-      <li>Next</li>
+      <li v-if="step == 1" @click="step = 2">Next</li>
+      <li v-if="step == 2" @click="publish">publish</li>
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <ContainerComp :instagramData='instagramData' :step='step' :imageUrl='imageUrl'/>
+  <ContainerComp @inputText="newContent = $event" :instagramData='instagramData' :step='step' :imageUrl='imageUrl'/>
 
   <button @click="more()">더보기</button>
 
@@ -35,6 +36,7 @@ export default {
       instagramData : data,
       step : 0,
       imageUrl :'',
+      newContent : '',
     }
   },
   components: {
@@ -57,7 +59,23 @@ export default {
       this.step = 1;
       this.imageUrl = url;
 
-    }
+    },
+    publish(){
+      console.log("newContent : ",this.newContent);
+
+      let newObject = {
+      name: "Kim Hyun",
+      userImage: "https://placeimg.com/100/100/arch",
+      postImage: this.imageUrl,
+      likes: 36,
+      date: "May 15",
+      liked: false,
+      content: this.newContent,
+      filter: "perpetua"
+    };
+      this.instagramData.unshift(newObject);
+      this.step = 0;
+    },
   }
 }
 </script>

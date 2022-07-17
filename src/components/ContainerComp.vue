@@ -7,21 +7,21 @@
 
         <!-- 필터선택페이지 -->
         <div v-if="step == 1">
-            <div class="upload-image" :style="{ backgroundImage : `url(${imageUrl})`}"></div>
+            <div class="upload-image" :style="`background-image:url(${imageUrl})`"></div>
             <div class="filters">
-                <div class="filter-1" :style="{ backgroundImage : `url(${imageUrl})`}"></div>
-                <div class="filter-1" :style="{ backgroundImage : `url(${imageUrl})`}"></div>
-                <div class="filter-1" :style="{ backgroundImage : `url(${imageUrl})`}"></div>
-                <div class="filter-1" :style="{ backgroundImage : `url(${imageUrl})`}"></div>
-                <div class="filter-1" :style="{ backgroundImage : `url(${imageUrl})`}"></div>
+                <div class="filter-1" ></div>
+                <div class="filter-1" ></div>
+                <div class="filter-1" ></div>
+                <div class="filter-1" ></div>
+                <div class="filter-1" ></div>
             </div>
         </div>
 
         <!-- 글작성페이지 -->
         <div v-if="step == 2">
-            <div class="upload-image"></div>
+            <div class="upload-image" :style="{ backgroundImage : `url(${imageUrl})`}"></div>
             <div class="write">
-                <textarea class="write-box">write!</textarea>
+                <textarea @change="$emit('inputText', texts)" v-model="texts" class="write-box"></textarea>
             </div>
         </div>
     </div>
@@ -34,6 +34,11 @@ import PostComp from './PostComp.vue';
 
 export default {
     name: 'ContainerComp',
+    data(){
+        return{
+            texts : 'write!',
+        }
+    },
     props: {
         instagramData: Array,
         step: Number,
@@ -43,6 +48,11 @@ export default {
     },
     components: {
         PostComp,
+    },
+    methods : {
+        textChange(){
+            console.log(this.texts);
+        },
     }
 
 }
