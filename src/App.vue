@@ -21,6 +21,8 @@
     </ul>
   </div>
 
+  <h4>{{$store.state.data}}</h4>
+
 </template>
 
 <script>
