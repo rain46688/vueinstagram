@@ -15,6 +15,8 @@
   <h4>Hellow {{ $store.state.name }}!</h4>
   <h4>Your Age {{ $store.state.age }}!</h4>
   <button @click="$store.commit('ageChange', 10)">Button</button>
+  <p>{{ $store.state.more }}!</p>
+  <button @click="$store.dispatch('getData')">더보기 버튼</button>
 
   <ContainerComp @inputText="newContent = $event" :newImageFilter='newImageFilter' :instagramData='instagramData'
     :step='step' :imageUrl='imageUrl' />
