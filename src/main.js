@@ -9,4 +9,5 @@ app.config.globalProperties.emitter = emitter;
 app.config.globalProperties.axios = axios;
 
 import store from './store.js'
+import './registerServiceWorker'
 app.use(store).mount('#app')
