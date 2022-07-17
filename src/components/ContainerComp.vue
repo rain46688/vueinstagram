@@ -28,7 +28,7 @@
 
     <!-- 마이페이지 -->
     <div v-if="step == 3">
-        <MyPageComp />
+        <MyPageComp :one='1'/>
     </div>
 
 </template>
