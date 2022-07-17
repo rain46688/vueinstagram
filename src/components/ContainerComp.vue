@@ -2,7 +2,7 @@
     <div>
         <!-- 저번시간에 만든거 -->
         <div v-if="step == 0">
-            <PostComp v-for="(data, num) in instagramData" :key="num" :data='data'/>
+            <PostComp v-for="(data, num) in instagramData" :key="num" :data='data' />
         </div>
 
         <!-- 필터선택페이지 -->
@@ -26,12 +26,18 @@
         </div>
     </div>
 
+    <!-- 마이페이지 -->
+    <div v-if="step == 3">
+        <MyPageComp />
+    </div>
+
 </template>
 
 <script>
 
 import PostComp from './PostComp.vue';
 import FilterBoxComp from './FilterBoxComp.vue';
+import MyPageComp from './MyPageComp.vue';
 
 export default {
     name: 'ContainerComp',
@@ -47,12 +53,13 @@ export default {
         instagramData: Array,
         step: Number,
         imageUrl: String,
-        newImageFilter : String,
+        newImageFilter: String,
 
     },
     components: {
         PostComp,
         FilterBoxComp,
+        MyPageComp,
 
     },
     methods: {

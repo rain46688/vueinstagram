@@ -12,6 +12,7 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
+<div v-if="step == 99">
   <h4>Hellow {{ $store.state.name }}!</h4>
   <!-- computed 함수에 미리 정의해놓으면 짧게 쓸수있음 -->
   <h4>computed Hellow {{ comname }}!</h4>
@@ -29,13 +30,14 @@
 
   <p>{{ now() }} {{ count }}</p>
   <button @click="count++">button</button>
+  </div>
 
   <ContainerComp @inputText="newContent = $event" :newImageFilter='newImageFilter' :instagramData='instagramData'
     :step='step' :imageUrl='imageUrl' />
 
-  <button @click="more()">더보기</button>
+  <button v-if="step == 0" @click="more()">더보기</button>
 
-  <div class="footer">
+  <div v-if="step == 0" class="footer">
     <ul class="footer-button-plus">
       <input @change="upload" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
@@ -57,7 +59,7 @@ export default {
   data() {
     return {
       instagramData: data,
-      step: 0,
+      step: 3,
       imageUrl: '',
       newContent: '',
       newImageFilter: '',
