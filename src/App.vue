@@ -9,7 +9,7 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <ContainerComp :instagramData='instagramData'/>
+  <ContainerComp :instagramData='instagramData' :step='step'/>
 
   <button @click="more()">더보기</button>
 
@@ -19,6 +19,7 @@
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
+
 </template>
 
 <script>
@@ -31,7 +32,8 @@ export default {
   name: 'App',
   data(){
     return{
-      instagramData : data
+      instagramData : data,
+      step : 0,
     }
   },
   components: {
