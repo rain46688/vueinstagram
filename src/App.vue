@@ -11,6 +11,8 @@
 
   <ContainerComp :instagramData='instagramData'/>
 
+  <button @click="more()">더보기</button>
+
   <div class="footer">
     <ul class="footer-button-plus">
       <input type="file" id="file" class="inputfile" />
@@ -23,6 +25,7 @@
 
 import ContainerComp from './components/ContainerComp.vue';
 import data from './assets/data.js';
+import axios from 'axios';
 
 export default {
   name: 'App',
@@ -33,6 +36,16 @@ export default {
   },
   components: {
     ContainerComp,
+  },
+  methods : {
+    more(){
+
+      axios.get(`https://codingapple1.github.io/vue/more${this.instagramData.length-3}.json`)
+      .then(result => {
+        console.log(result.data);
+        this.instagramData.push(result.data);
+      })
+    }
   }
 }
 </script>
