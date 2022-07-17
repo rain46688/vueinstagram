@@ -9,17 +9,17 @@
         <div v-if="step == 1">
             <div class="upload-image" :style="`background-image:url(${imageUrl})`"></div>
             <div class="filters">
-                <div class="filter-1" ></div>
-                <div class="filter-1" ></div>
-                <div class="filter-1" ></div>
-                <div class="filter-1" ></div>
-                <div class="filter-1" ></div>
+                <FilterBoxComp v-for="(a, i) in filters" :key="a" :imageUrl="imageUrl" :filter="filters[i]">
+                    <!-- <template v-slot:default="작명"> {{ 작명.데이터 }}</template> -->
+                    <template v-slot:a>{{ filters[i] }}</template>
+                    <!-- <template v-slot:b>{{ i }}</template> -->
+                </FilterBoxComp>
             </div>
         </div>
 
         <!-- 글작성페이지 -->
         <div v-if="step == 2">
-            <div class="upload-image" :style="{ backgroundImage : `url(${imageUrl})`}"></div>
+            <div class="upload-image" :style="{ backgroundImage: `url(${imageUrl})` }"></div>
             <div class="write">
                 <textarea @change="$emit('inputText', texts)" v-model="texts" class="write-box"></textarea>
             </div>
@@ -31,26 +31,32 @@
 <script>
 
 import PostComp from './PostComp.vue';
+import FilterBoxComp from './FilterBoxComp.vue';
 
 export default {
     name: 'ContainerComp',
-    data(){
-        return{
-            texts : 'write!',
+    data() {
+        return {
+            texts: 'write!',
+            filters: ["aden", "_1977", "brannan", "brooklyn", "clarendon", "earlybird", "gingham", "hudson",
+                "inkwell", "kelvin", "lark", "lofi", "maven", "mayfair", "moon", "nashville", "perpetua",
+                "reyes", "rise", "slumber", "stinson", "toaster", "valencia", "walden", "willow", "xpro2"],
         }
     },
     props: {
         instagramData: Array,
         step: Number,
-        imageUrl : String,
+        imageUrl: String,
 
 
     },
     components: {
         PostComp,
+        FilterBoxComp,
+
     },
-    methods : {
-        textChange(){
+    methods: {
+        textChange() {
             console.log(this.texts);
         },
     }
