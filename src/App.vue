@@ -1,4 +1,6 @@
 <template>
+
+
   <div class="header">
     <ul class="header-button-left">
       <li>Cancel</li>
@@ -10,7 +12,12 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <ContainerComp @inputText="newContent = $event" :newImageFilter='newImageFilter' :instagramData='instagramData' :step='step' :imageUrl='imageUrl' />
+  <h4>Hellow {{ $store.state.name }}!</h4>
+  <h4>Your Age {{ $store.state.age }}!</h4>
+  <button @click="$store.commit('ageChange', 10)">Button</button>
+
+  <ContainerComp @inputText="newContent = $event" :newImageFilter='newImageFilter' :instagramData='instagramData'
+    :step='step' :imageUrl='imageUrl' />
 
   <button @click="more()">더보기</button>
 
@@ -20,8 +27,6 @@
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
-
-  <h4>{{$store.state.data}}</h4>
 
 </template>
 
@@ -39,7 +44,7 @@ export default {
       step: 0,
       imageUrl: '',
       newContent: '',
-      newImageFilter : '',
+      newImageFilter: '',
     }
   },
   components: {
