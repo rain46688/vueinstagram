@@ -9,13 +9,13 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <ContainerComp :instagramData='instagramData' :step='step'/>
+  <ContainerComp :instagramData='instagramData' :step='step' :imageUrl='imageUrl'/>
 
   <button @click="more()">더보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
-      <input type="file" id="file" class="inputfile" />
+      <input @change="upload" type="file" id="file" class="inputfile" />
       <label for="file" class="input-plus">+</label>
     </ul>
   </div>
@@ -34,6 +34,7 @@ export default {
     return{
       instagramData : data,
       step : 0,
+      imageUrl :'',
     }
   },
   components: {
@@ -47,6 +48,15 @@ export default {
         console.log(result.data);
         this.instagramData.push(result.data);
       })
+    },
+    upload(e){
+      let a = e.target.files;
+      console.log(a[0]);
+      let url = URL.createObjectURL(a[0]);
+      console.log(url);
+      this.step = 1;
+      this.imageUrl = url;
+
     }
   }
 }
